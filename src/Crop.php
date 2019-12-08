@@ -124,8 +124,7 @@ function cropper(imgSrc,id,w,h)
 {
     
     var cropperImg = '<div id="cropping-div"><img id="cropping-img" src="'+imgSrc+'"><\/div>';
-    
-    
+     
     //生成弹层模块
     layer.open({
         type: 1,
@@ -135,9 +134,9 @@ function cropper(imgSrc,id,w,h)
         anim: 2,
         resize: false,
         shadeClose: false, //关闭遮罩关闭
-        title: '图片剪裁器',
+        title: 'Picture cropper',
         content: cropperImg,
-        btn: ['剪裁','原图','清空'],
+        btn: ['Crop', 'Original', 'Empty'],
         btn1: function(){
             var cas = cropper.getCroppedCanvas({
                 width: w,
