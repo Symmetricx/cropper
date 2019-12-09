@@ -65,12 +65,12 @@ class Crop extends File
         //检查是否是base64编码
         if (preg_match('/data:image\/.*?;base64/is',$base64)) {
             //base64转图片 返回的是绝对路径
-            $imagePath = $this->base64_image_content($base64,public_path('uploads/base64img'));
+            $imagePath = $this->base64_image_content($base64,storage_path('app/public/images'));
             if ($imagePath !== false) {
                 //删除旧图片
                 @unlink(public_path('uploads/').$this->original);
                 //处理图片地址
-                preg_match('/base64img\/.*/is',$imagePath,$matches);
+                preg_match('/images\/.*/is',$imagePath,$matches);
 
                 $this->callInterventionMethods($imagePath);
 
@@ -79,7 +79,7 @@ class Crop extends File
                 return 'lost';
             }
         } else {
-            preg_match('/base64img\/.*/is',$base64,$matches);
+            preg_match('/images\/.*/is',$base64,$matches);
             return isset($matches[0]) ? $matches[0] : $base64;
         }
     }
@@ -124,7 +124,8 @@ function cropper(imgSrc,id,w,h)
 {
     
     var cropperImg = '<div id="cropping-div"><img id="cropping-img" src="'+imgSrc+'"><\/div>';
-     
+    
+    
     //生成弹层模块
     layer.open({
         type: 1,
@@ -134,9 +135,9 @@ function cropper(imgSrc,id,w,h)
         anim: 2,
         resize: false,
         shadeClose: false, //关闭遮罩关闭
-        title: 'Picture cropper',
+        title: '图片剪裁器',
         content: cropperImg,
-        btn: ['Crop', 'Original', 'Empty'],
+        btn: ['剪裁','原图','清空'],
         btn1: function(){
             var cas = cropper.getCroppedCanvas({
                 width: w,
